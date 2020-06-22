@@ -32,28 +32,12 @@ function draw_pie_members(areaID) {
 
         var color = d3.scaleOrdinal().range([d3.schemeCategory20c[0], d3.schemeCategory20c[1]]);
 
-        var tip = d3
-            .tip()
-            .attr('class', 'd3-tip')
-            .offset(function() {
-                return [this.getBBox().height / 2, 0];
-            })
-            .html(function(d) {
-                var units = ' Members';
-                if (d.data.count == 1) {
-                    units = ' Member';
-                }
-                return d.data.count + units + ' (' + d3.format('.0%')(d.data.count / dataTotalCount) + ')' + '<br>' + d.data.label;
-            });
-
         var chart = d3
             .select('.' + areaID)
             .attr('width', width)
             .attr('height', height)
             .append('g')
             .attr('transform', 'translate(' + (width / 2 + margin.left) + ',' + (height / 2 - margin.top) + ')');
-
-        chart.call(tip);
 
         var arc = d3
             .arc()
@@ -75,9 +59,7 @@ function draw_pie_members(areaID) {
             .attr('d', arc)
             .attr('fill', function(d, i) {
                 return color(d.data.label);
-            })
-            .on('mouseover', tip.show)
-            .on('mouseout', tip.hide);
+            });
 
         // Add legend
         var legend = chart
@@ -130,6 +112,10 @@ function draw_pie_members(areaID) {
             .attr('y', -25)
             .attr('text-anchor', 'middle')
             .text(dataTotalCount);
+    }
+
+    function onClick() {
+        
     }
 
     // Turn json obj into desired working data
