@@ -145,7 +145,7 @@ function draw_nodegraph_labUsers(areaID) {
                             gCNodes.remove();
                             gPNode.remove();
                             update(p.parent);
-                        }, dur)
+                        }, dur);
                     }
                 });
 
@@ -165,12 +165,13 @@ function draw_nodegraph_labUsers(areaID) {
             // Plays animation
             cNodes
                 .transition()
-                .duration(700)
-                .attr('transform', function(c) {
-                    let xCoord = r(0.7)*(Math.cos(theta(c['data']['id']))) + center[0];
-                    let yCoord = r(0.7)*(Math.sin(theta(c['data']['id']))) + center[1];
-                    return 'translate(' + xCoord + ',' + yCoord + ')';
-                });
+                    .duration(750)
+                    .attr('transform', function(c) {
+                        let xCoord = r(0.7)*(Math.cos(theta(c['data']['id']))) + center[0];
+                        let yCoord = r(0.7)*(Math.sin(theta(c['data']['id']))) + center[1];
+                        return 'translate(' + xCoord + ',' + yCoord + ')';
+                    })
+                    .ease(d3.easeBackOut.overshoot(1.7));
         }
         
         update(root, false);
