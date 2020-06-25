@@ -77,9 +77,7 @@ function draw_nodegraph_labUsers(areaID) {
                 .enter()
                 .append('g')
                 .attr('transform', function(c) {
-                    let xCoord = r(0.75)*(Math.cos(theta(c['data']['id']))) + center[0];
-                    let yCoord = r(0.75)*(Math.sin(theta(c['data']['id']))) + center[1];
-                    return 'translate(' + xCoord + ',' + yCoord + ')';
+                    return 'translate(' + center[0] + ',' + center[1] + ')';
                 });
 
             // Adds circle to each child
@@ -88,24 +86,35 @@ function draw_nodegraph_labUsers(areaID) {
                 .attr('class', 'circle')
                 .attr('cx', 0)
                 .attr('cy', 0)
-                .attr('r', dotRadius)
+                .attr('r', dotRadius + 5)
                 .on('click', function(c) {
                     if(c.children != null) {
-                        gCNodes.remove();
-                        gPNode.remove();
-                        update(c);
+                        let dur = 700
+                        cNodes
+                            .transition()
+                            .duration(dur)
+                            .attr('transform', 'translate(' + center[0] + ',' + center[1] + ')');
+                        setTimeout(function(){
+                            gCNodes.remove();
+                            gPNode.remove();
+                            update(c);
+                        }, dur)
                     }
                 });
 
             // Adds each childs name
-            cNodes
+            let cNames = cNodes
                 .append('text')
                 .attr('text-anchor', 'middle')
                 .attr('dy', '5')
                 .text(function(c) {
                     return c['data']['name'];
                 })
-                .attr('fill', 'white');
+                .attr('fill', 'white')
+                .attr('lengthAdjust', 'spacingAndGlyphs')
+                .attr('textLength', function(c) {
+                    return c['data']['name'].length * 7.5 > 87 ? 87 : c['data']['name'].length * 7.5;
+                });
 
             let gPNode = chart
                 .append('g')
@@ -127,9 +136,16 @@ function draw_nodegraph_labUsers(areaID) {
                 .attr('r', dotRadius + 10)
                 .on('click', function(p) {
                     if(p.parent != null) {
-                        gCNodes.remove();
-                        gPNode.remove();
-                        update(p.parent);
+                        let dur = 700
+                        cNodes
+                            .transition()
+                            .duration(dur)
+                            .attr('transform', 'translate(' + center[0] + ',' + center[1] + ')');
+                        setTimeout(function(){
+                            gCNodes.remove();
+                            gPNode.remove();
+                            update(p.parent);
+                        }, dur)
                     }
                 });
 
@@ -140,7 +156,21 @@ function draw_nodegraph_labUsers(areaID) {
                 .text(function(p) {
                     return p['data']['name'];
                 })
+                .attr('lengthAdjust', 'spacingAndGlyphs')
+                .attr('textLength', function(p) {
+                    return p['data']['name'].length * 7.5 > 98 ? 98 : p['data']['name'].length * 7.5;
+                })
                 .attr('fill', 'white');
+
+            // Plays animation
+            cNodes
+                .transition()
+                .duration(700)
+                .attr('transform', function(c) {
+                    let xCoord = r(0.7)*(Math.cos(theta(c['data']['id']))) + center[0];
+                    let yCoord = r(0.7)*(Math.sin(theta(c['data']['id']))) + center[1];
+                    return 'translate(' + xCoord + ',' + yCoord + ')';
+                });
         }
         
         update(root, false);
@@ -161,15 +191,15 @@ function draw_nodegraph_labUsers(areaID) {
                     let subOrg = split[0];
                     if(organization['suborganizations'] != null && organization['suborganizations'][subOrg] != undefined) {
                         if(organization['suborganizations'][subOrg]['repos'].hasOwnProperty(repo)) {
-                            let userName = obj['data'][name]['name'] != null ? obj['data'][name]['name'] : name;
+                            let userName = obj['data'][name]['name'] != null ? obj['data'][name]['name'].replace(' ','\n') : name.replace(' ','\n');
                             organization['suborganizations'][subOrg]['repos'][repo]['users'][name] = { name: userName };
                         } else {
-                            let userName = obj['data'][name]['name'] != null ? obj['data'][name]['name'] : name;
+                            let userName = obj['data'][name]['name'] != null ? obj['data'][name]['name'].replace(' ','\n') : name.replace(' ','\n');
                             organization['suborganizations'][subOrg]['repos'][repo] = { name: repo, users: {} };
                             organization['suborganizations'][subOrg]['repos'][repo]['users'][name] = { name: userName };
                         }
                     } else {
-                        let userName = obj['data'][name]['name'] != null ? obj['data'][name]['name'] : name;
+                        let userName = obj['data'][name]['name'] != null ? obj['data'][name]['name'].replace(' ','\n') : name.replace(' ','\n');
                         organization['suborganizations'][subOrg] = { name: subOrg, repos: {} };
                         organization['suborganizations'][subOrg]['repos'][repo] = { name: repo, users: {} };
                         organization['suborganizations'][subOrg]['repos'][repo]['users'][name] = { name: userName };
