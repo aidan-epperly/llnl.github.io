@@ -1,17 +1,24 @@
 /* Creates line graph visualization for webpage */
-function draw_line_repoActivity(areaID, repoNameWOwner) {
+function draw_line_repoActivity(areaID) {
     // load data file, process data, and draw visualization
     var url = ghDataDir + '/labRepos_Activity.json';
     d3.json(url, function(obj) {
-        var data = reformatData(obj);
-        drawGraph(data, areaID);
+        drawGraph(obj, areaID);
     });
 
     var parseTime = d3.timeParse('%Y-%m-%d');
     var formatTime = d3.timeFormat('%Y-%m-%d');
 
     // Draw graph from data
-    function drawGraph(data, areaID) {
+    function drawGraph(obj, areaID) {
+        var repoOptions = Object.keys(obj['data']);
+        repoOptions.unshift('LLNL');
+
+        console.debug(repoOptions);
+
+        var data = reformatData(obj);
+        var repoNameWOwner = null;
+
         var graphHeader;
         if (repoNameWOwner == null) {
             graphHeader = 'Activity Across All Repos [Default Branches, 1 Year]';
@@ -28,6 +35,24 @@ function draw_line_repoActivity(areaID, repoNameWOwner) {
             width = stdTotalWidth * 2 - margin.left - margin.right,
             height = stdHeight;
         var dotRadius = stdDotRadius;
+
+        var chart = d3
+            .select('.' + areaID)
+            .attr('width', width + margin.left + margin.right)
+            .attr('height', height + margin.top + margin.bottom)
+            .append('g')
+            .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
+
+        let dropdown = chart
+            .append('select')
+            .attr('x', 0)
+            .attr('y', 0)
+            .selectAll('option')
+            .data(repoOptions)
+            .enter()
+            .append('option')
+            .text(d => d)
+            .attr('value', (d, i) => i);
 
         var x = d3
             .scaleTime()
@@ -97,13 +122,6 @@ function draw_line_repoActivity(areaID, repoNameWOwner) {
             .y(function(d) {
                 return y(d.value);
             });
-
-        var chart = d3
-            .select('.' + areaID)
-            .attr('width', width + margin.left + margin.right)
-            .attr('height', height + margin.top + margin.bottom)
-            .append('g')
-            .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 
         chart.call(tip);
 
@@ -184,7 +202,7 @@ function draw_line_repoActivity(areaID, repoNameWOwner) {
     }
 
     // Turn json obj into desired working data
-    function reformatData(obj) {
+    function reformatData(obj, repoNameWOwner) {
         // Calculate combined values
         var dataTotals = {};
         var repoCounts = {};
