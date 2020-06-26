@@ -42,8 +42,6 @@ function draw_nodegraph_labUsers(areaID) {
             let headNode = source;
             let childNodes = headNode.children.slice(0,6);
 
-            console.debug(headNode);
-
             let theta = d3
                 .scaleLinear()
                 .domain([
@@ -165,13 +163,13 @@ function draw_nodegraph_labUsers(areaID) {
             // Plays animation
             cNodes
                 .transition()
-                    .duration(750)
+                    .duration(1050)
                     .attr('transform', function(c) {
                         let xCoord = r(0.7)*(Math.cos(theta(c['data']['id']))) + center[0];
                         let yCoord = r(0.7)*(Math.sin(theta(c['data']['id']))) + center[1];
                         return 'translate(' + xCoord + ',' + yCoord + ')';
                     })
-                    .ease(d3.easeBackOut.overshoot(1.7));
+                    .ease(d3.easeElasticOut.amplitude(0.1).period(0.6));
         }
         
         update(root, false);
