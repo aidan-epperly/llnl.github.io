@@ -26,6 +26,9 @@ function draw_line_repoActivity(areaID) {
             graphHeader = "Activity for '" + repoNameWOwner + "' [Default Branch, 1 Year]";
         }
 
+        // Removes most recent week from graph to avoid apparent dip in activity
+        data.pop();
+
         data.forEach(function(d) {
             d.date = parseTime(d.date);
             d.value = +d.value;
