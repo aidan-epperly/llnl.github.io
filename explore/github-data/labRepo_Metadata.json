@@ -1,4 +1,10 @@
 {
+    "ATOMconsortium/AMPL": {
+        "description": "The ATOM Modeling PipeLine (AMPL) is an open-source, modular, extensible software pipeline for building and sharing models to advance in silico drug discovery.",
+        "name": "ATOMconsortium/AMPL",
+        "topics": null,
+        "website": ""
+    },
     "Alpine-DAV/ascent": {
         "description": "A flyweight in situ visualization and analysis runtime for multi-physics HPC simulations",
         "name": "Alpine-DAV/ascent",
@@ -150,6 +156,12 @@
     "CDAT/cdat_info-feedstock": {
         "description": "A conda-smithy repository for cdat_info.",
         "name": "CDAT/cdat_info-feedstock",
+        "topics": null,
+        "website": null
+    },
+    "CDAT/cdat_readthedocs": {
+        "description": null,
+        "name": "CDAT/cdat_readthedocs",
         "topics": null,
         "website": null
     },
@@ -638,7 +650,11 @@
     "ECP-VeloC/VELOC": {
         "description": "Very-Low Overhead Checkpointing System",
         "name": "ECP-VeloC/VELOC",
-        "topics": null,
+        "topics": [
+            "checkpointing",
+            "checkpoint-restart",
+            "async-storage"
+        ],
         "website": "http://veloc.rtfd.io"
     },
     "ECP-VeloC/artifacts": {
@@ -2065,6 +2081,12 @@
         ],
         "website": "https://computing.llnl.gov/code/pnmpi/"
     },
+    "LLNL/PolyClipper": {
+        "description": "PolyClipper provides methods to clip arbitrary polygons (in 2D) and polyhedra (in 3D) by planes.",
+        "name": "LLNL/PolyClipper",
+        "topics": null,
+        "website": null
+    },
     "LLNL/PyDV": {
         "description": "PyDV: Python Data Visualizer",
         "name": "LLNL/PyDV",
@@ -2768,6 +2790,12 @@
         ],
         "website": null
     },
+    "LLNL/dynim": {
+        "description": "Dynamic Importance Sampling",
+        "name": "LLNL/dynim",
+        "topics": null,
+        "website": null
+    },
     "LLNL/f-strings": {
         "description": "String interpolation for Lua",
         "name": "LLNL/f-strings",
@@ -2814,7 +2842,10 @@
             "high-dimensional-data",
             "data-viz",
             "projection",
-            "dimensionality-reduction"
+            "dimensionality-reduction",
+            "visualization",
+            "discriminant-analysis",
+            "supervised-dimensionality-reduction"
         ],
         "website": ""
     },
@@ -3364,7 +3395,8 @@
             "gov",
             "llnl",
             "msr-safe",
-            "performance"
+            "performance",
+            "kernel-module"
         ],
         "website": ""
     },
@@ -4687,7 +4719,12 @@
     "hypre-space/hypre": {
         "description": "Parallel solvers for sparse linear systems featuring multigrid methods.",
         "name": "hypre-space/hypre",
-        "topics": null,
+        "topics": [
+            "math-physics",
+            "library",
+            "hpc",
+            "radiuss"
+        ],
         "website": "https://www.llnl.gov/casc/hypre/"
     },
     "mfem/PyMFEM": {
@@ -4892,6 +4929,7 @@
         "topics": [
             "python",
             "spack",
+            "paper",
             "package-manager",
             "hpc",
             "scientific-computing",
@@ -4975,7 +5013,7 @@
         "website": null
     },
     "visit-dav/largedata": {
-        "description": "LFS repo for large VisIt data files",
+        "description": "VisIt LFS repo for sharing large files",
         "name": "visit-dav/largedata",
         "topics": [
             "visualization",

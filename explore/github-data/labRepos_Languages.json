@@ -1,5 +1,24 @@
 {
     "data": {
+        "ATOMconsortium/AMPL": {
+            "languages": {
+                "nodes": [
+                    {
+                        "name": "Python"
+                    },
+                    {
+                        "name": "Jupyter Notebook"
+                    },
+                    {
+                        "name": "Shell"
+                    },
+                    {
+                        "name": "Makefile"
+                    }
+                ],
+                "totalCount": 4
+            }
+        },
         "Alpine-DAV/ascent": {
             "languages": {
                 "nodes": [
@@ -494,6 +513,12 @@
                     }
                 ],
                 "totalCount": 1
+            }
+        },
+        "CDAT/cdat_readthedocs": {
+            "languages": {
+                "nodes": [],
+                "totalCount": 0
             }
         },
         "CDAT/cdat_usage2.0": {
@@ -2123,19 +2148,22 @@
                         "name": "Python"
                     },
                     {
-                        "name": "Dockerfile"
+                        "name": "Jupyter Notebook"
                     },
                     {
-                        "name": "Shell"
+                        "name": "Dockerfile"
                     },
                     {
                         "name": "Makefile"
                     },
                     {
+                        "name": "Shell"
+                    },
+                    {
                         "name": "HTML"
                     }
                 ],
-                "totalCount": 5
+                "totalCount": 6
             }
         },
         "ESGF/esgf-config": {
@@ -3417,9 +3445,12 @@
                 "nodes": [
                     {
                         "name": "Python"
+                    },
+                    {
+                        "name": "Shell"
                     }
                 ],
-                "totalCount": 1
+                "totalCount": 2
             }
         },
         "GMLC-TDC/homebrew-helics": {
@@ -3572,16 +3603,10 @@
                         "name": "C"
                     },
                     {
-                        "name": "C++"
-                    },
-                    {
                         "name": "TeX"
                     },
                     {
                         "name": "Roff"
-                    },
-                    {
-                        "name": "M4"
                     },
                     {
                         "name": "M"
@@ -3590,37 +3615,37 @@
                         "name": "MATLAB"
                     },
                     {
-                        "name": "Shell"
+                        "name": "C++"
                     },
                     {
-                        "name": "Makefile"
+                        "name": "M4"
+                    },
+                    {
+                        "name": "Shell"
                     },
                     {
                         "name": "HTML"
                     },
                     {
-                        "name": "Assembly"
-                    },
-                    {
-                        "name": "Fortran"
-                    },
-                    {
                         "name": "CMake"
                     },
                     {
-                        "name": "Perl"
+                        "name": "Makefile"
                     },
                     {
                         "name": "Python"
                     },
                     {
-                        "name": "SWIG"
+                        "name": "Perl"
+                    },
+                    {
+                        "name": "Fortran"
                     },
                     {
                         "name": "JavaScript"
                     },
                     {
-                        "name": "Yacc"
+                        "name": "SWIG"
                     },
                     {
                         "name": "mIRC Script"
@@ -3632,16 +3657,13 @@
                         "name": "Smarty"
                     },
                     {
-                        "name": "Lex"
-                    },
-                    {
                         "name": "Gnuplot"
                     },
                     {
                         "name": "PHP"
                     }
                 ],
-                "totalCount": 24
+                "totalCount": 21
             }
         },
         "LLNL/ANS": {
@@ -5240,6 +5262,22 @@
                 "totalCount": 6
             }
         },
+        "LLNL/PolyClipper": {
+            "languages": {
+                "nodes": [
+                    {
+                        "name": "C++"
+                    },
+                    {
+                        "name": "Python"
+                    },
+                    {
+                        "name": "CMake"
+                    }
+                ],
+                "totalCount": 3
+            }
+        },
         "LLNL/PyDV": {
             "languages": {
                 "nodes": [
@@ -6744,10 +6782,10 @@
                         "name": "Fortran"
                     },
                     {
-                        "name": "Python"
+                        "name": "CMake"
                     },
                     {
-                        "name": "CMake"
+                        "name": "Python"
                     },
                     {
                         "name": "JavaScript"
@@ -6957,14 +6995,34 @@
         },
         "LLNL/ddcMD": {
             "languages": {
-                "nodes": [],
-                "totalCount": 0
+                "nodes": [
+                    {
+                        "name": "C"
+                    },
+                    {
+                        "name": "Cuda"
+                    },
+                    {
+                        "name": "C++"
+                    },
+                    {
+                        "name": "Makefile"
+                    },
+                    {
+                        "name": "Objective-C"
+                    }
+                ],
+                "totalCount": 5
             }
         },
         "LLNL/ddcMDconverter": {
             "languages": {
-                "nodes": [],
-                "totalCount": 0
+                "nodes": [
+                    {
+                        "name": "Python"
+                    }
+                ],
+                "totalCount": 1
             }
         },
         "LLNL/devil_ray": {
@@ -7016,6 +7074,12 @@
                     }
                 ],
                 "totalCount": 4
+            }
+        },
+        "LLNL/dynim": {
+            "languages": {
+                "nodes": [],
+                "totalCount": 0
             }
         },
         "LLNL/f-strings": {
@@ -7487,16 +7551,13 @@
                         "name": "HTML"
                     },
                     {
-                        "name": "M4"
-                    },
-                    {
-                        "name": "Makefile"
+                        "name": "CMake"
                     },
                     {
                         "name": "Shell"
                     }
                 ],
-                "totalCount": 5
+                "totalCount": 4
             }
         },
         "LLNL/ior": {
@@ -8043,16 +8104,16 @@
             "languages": {
                 "nodes": [
                     {
-                        "name": "Shell"
+                        "name": "C"
                     },
                     {
-                        "name": "C"
+                        "name": "M4"
                     },
                     {
                         "name": "Makefile"
                     },
                     {
-                        "name": "M4"
+                        "name": "Shell"
                     }
                 ],
                 "totalCount": 4
@@ -8060,8 +8121,12 @@
         },
         "LLNL/maestro_sheetmusic": {
             "languages": {
-                "nodes": [],
-                "totalCount": 0
+                "nodes": [
+                    {
+                        "name": "Jupyter Notebook"
+                    }
+                ],
+                "totalCount": 1
             }
         },
         "LLNL/maestrowf": {
@@ -12263,10 +12328,10 @@
                         "name": "Assembly"
                     },
                     {
-                        "name": "Makefile"
+                        "name": "C++"
                     },
                     {
-                        "name": "C++"
+                        "name": "Makefile"
                     },
                     {
                         "name": "Lua"
@@ -12771,9 +12836,15 @@
                     },
                     {
                         "name": "Perl"
+                    },
+                    {
+                        "name": "Python"
+                    },
+                    {
+                        "name": "Dockerfile"
                     }
                 ],
-                "totalCount": 2
+                "totalCount": 4
             }
         },
         "spack/spack-tutorial": {
@@ -12860,9 +12931,12 @@
                     },
                     {
                         "name": "Roff"
+                    },
+                    {
+                        "name": "Ruby"
                     }
                 ],
-                "totalCount": 2
+                "totalCount": 3
             }
         },
         "visit-dav/live-customer-response": {

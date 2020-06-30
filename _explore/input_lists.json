@@ -18,6 +18,7 @@
     ],
     "repos": [
         "alpine-dav/ascent",
+        "atomconsortium/ampl",
         "ceed/benchmarks",
         "ceed/laghos",
         "ceed/libceed",
