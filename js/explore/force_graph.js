@@ -15,7 +15,9 @@ function draw_force_graph(areaID) {
             linkArray.push({ source: i, target: 0, value: 1 });
         }*/
         let rand = getRandomInt(i);
-        linkArray.push({ source: i, target: rand, value: Math.abs(rand - i) });
+        if(Math.abs(rand - i) < 20) {
+            linkArray.push({ source: i, target: rand, value: Math.abs(rand - i) });
+        }
     }
     const data = { nodes: nodeArray, links: linkArray };
 
@@ -39,8 +41,15 @@ function draw_force_graph(areaID) {
         const nodes = data.nodes;
         const links = data.links;
 
+        function weight(x) {
+            const b = 0.15;
+            const c = ( Math.exp(b) / ( Math.exp(100*b) - Math.exp(b) ) );
+            const a = ( 1 + c ) * Math.exp(b);
+            return a * Math.exp(-1 * b * x) - c;
+        }
+
         const simulation = d3.forceSimulation(nodes)
-            .force("link", d3.forceLink(links).id(d => d.id).distance(d => 30 / (3 - (2 / Math.log(100) * (Math.log(d.value))))))
+            .force("link", d3.forceLink(links).id(d => d.id).distance(d => 31 - 30 * weight(d.value)))
             .force('charge', d3.forceManyBody())
             .force('x', d3.forceX())
             .force('y', d3.forceY());
@@ -53,7 +62,7 @@ function draw_force_graph(areaID) {
             .data(links)
             .enter()
                 .append("line")
-                .attr("stroke-width", d => 2 - (2 / Math.log(100) * (Math.log(d.value))) );
+                .attr("stroke-width", d => (100 - d.value) / 50);
 
         const node = chart
             .append('g')
