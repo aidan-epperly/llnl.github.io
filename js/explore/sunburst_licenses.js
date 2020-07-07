@@ -156,7 +156,7 @@ function draw_sunburst_licenses(areaID) {
             d3.select('#licenseNames').raise();
 
             function clicked(o) {
-                parent.datum(o.parent || root)
+                parent.datum(o.parent || root);
 
                 root.each(d => d.target = {
                     x0: Math.max(0, Math.min(1, (d.x0 - o.x0) / (o.x1 - o.x0))) * 2 * Math.PI,
@@ -184,22 +184,15 @@ function draw_sunburst_licenses(areaID) {
                     .duration(dur)
                     .attr('fill-opacity', d => +(d.data.name == o.data.name));
 
-                sliderGroup.select('rect')
-                    .transition()
-                    .duration(dur)
-                    .attr('fill-opacity', d => {
-                        console.debug(this);
-                        console.debug(d);
-                        console.debug(sliderGroup.select('rect').attr('fill-opacity'));
-                        if (sliderGroup.select('rect').attr('fill-opacity') == 0) {
-                            d3.select(this).raise();
-                            console.debug('Raising');
-                            return 1;
-                        } else {
-                            d3.select(this).lower();
-                            return 0;
-                        }
-                    })
+                if (o.depth == 0) {
+                    console.debug('beep');
+                    sliderBox.selectAll('g').remove();
+                    sliderBox.call(slider);
+                } else {
+                    console.debug('boop');
+                    sliderBox.selectAll('g').remove();
+                }
+
             }
         }
 
@@ -214,6 +207,8 @@ function draw_sunburst_licenses(areaID) {
         }
 
         let options = ['Stars', 'Forks', 'Users', 'Repos'];
+        
+        let sliderValue = 0;
 
         const slider = d3
             .sliderRight()
@@ -223,7 +218,10 @@ function draw_sunburst_licenses(areaID) {
                 return options[Math.round(d)];
             })
             .ticks(3)
+            .value(sliderValue)
+            .height(100)
             .on('onchange', val => {
+                sliderValue = val;
                 val = options[Math.round(val)];
                 data = reformatData(obj, val);
                 root = partition(data);
@@ -232,22 +230,11 @@ function draw_sunburst_licenses(areaID) {
             });
     
         // Creates option slider
-        const sliderGroup = chart.append('g')
+        const sliderBox = chart.append('g')
             .attr('transform', `translate(${margin.left},${margin.top / 2})`)
             .attr('id', 'licenseSlider');
 
-        sliderGroup
-            .append('rect')
-            .attr('x', 0)
-            .attr('y', 0)
-            .attr('width', 120)
-            .attr('height', 180)
-            .attr('fill', 'rgb(255,255,255)')
-            .attr('fill-opacity', 1)
-            .lower();
-
-        sliderGroup
-            .call(slider);
+        sliderBox.call(slider);
 
         // Calls update to draw graph for the first time
         update();
