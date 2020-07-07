@@ -184,6 +184,22 @@ function draw_sunburst_licenses(areaID) {
                     .duration(dur)
                     .attr('fill-opacity', d => +(d.data.name == o.data.name));
 
+                sliderGroup.select('rect')
+                    .transition()
+                    .duration(dur)
+                    .attr('fill-opacity', d => {
+                        console.debug(this);
+                        console.debug(d);
+                        console.debug(sliderGroup.select('rect').attr('fill-opacity'));
+                        if (sliderGroup.select('rect').attr('fill-opacity') == 0) {
+                            d3.select(this).raise();
+                            console.debug('Raising');
+                            return 1;
+                        } else {
+                            d3.select(this).lower();
+                            return 0;
+                        }
+                    })
             }
         }
 
@@ -200,7 +216,7 @@ function draw_sunburst_licenses(areaID) {
         let options = ['Stars', 'Forks', 'Users', 'Repos'];
 
         const slider = d3
-            .sliderBottom()
+            .sliderRight()
             .domain([0,3])
             .step(1)
             .tickFormat(d => {
@@ -212,14 +228,25 @@ function draw_sunburst_licenses(areaID) {
                 data = reformatData(obj, val);
                 root = partition(data);
                 chart.select('#licenseCenter').remove();
-                chart.select('#licenseSlider').call(slider);
                 update();
             });
     
         // Creates option slider
-        chart.append('g')
+        const sliderGroup = chart.append('g')
             .attr('transform', `translate(${margin.left},${margin.top / 2})`)
-            .attr('id', 'licenseSlider')
+            .attr('id', 'licenseSlider');
+
+        sliderGroup
+            .append('rect')
+            .attr('x', 0)
+            .attr('y', 0)
+            .attr('width', 120)
+            .attr('height', 180)
+            .attr('fill', 'rgb(255,255,255)')
+            .attr('fill-opacity', 1)
+            .lower();
+
+        sliderGroup
             .call(slider);
 
         // Calls update to draw graph for the first time
