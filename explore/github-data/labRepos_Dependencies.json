@@ -4141,11 +4141,6 @@
                 "nodes": []
             }
         },
-        "CEED/benchmarks": {
-            "dependencyGraphManifests": {
-                "nodes": []
-            }
-        },
         "CEED/libCEED": {
             "dependencyGraphManifests": {
                 "nodes": [
@@ -7394,6 +7389,11 @@
                 "nodes": []
             }
         },
+        "LLNL/Caliper": {
+            "dependencyGraphManifests": {
+                "nodes": []
+            }
+        },
         "LLNL/CallFlow": {
             "dependencyGraphManifests": {
                 "nodes": [
@@ -8139,11 +8139,6 @@
             }
         },
         "LLNL/Frescox": {
-            "dependencyGraphManifests": {
-                "nodes": []
-            }
-        },
-        "LLNL/GOTCHA": {
             "dependencyGraphManifests": {
                 "nodes": []
             }
@@ -9792,11 +9787,6 @@
                         }
                     }
                 ]
-            }
-        },
-        "LLNL/UnifyFS": {
-            "dependencyGraphManifests": {
-                "nodes": []
             }
         },
         "LLNL/Varity": {
@@ -13076,6 +13066,14 @@
                                 },
                                 {
                                     "packageManager": "PIP",
+                                    "packageName": "cython",
+                                    "repository": {
+                                        "name": "cython",
+                                        "nameWithOwner": "cython/cython"
+                                    }
+                                },
+                                {
+                                    "packageManager": "PIP",
                                     "packageName": "flake8",
                                     "repository": {
                                         "name": "flake8",
@@ -13144,6 +13142,14 @@
                     {
                         "dependencies": {
                             "nodes": [
+                                {
+                                    "packageManager": "PIP",
+                                    "packageName": "cython",
+                                    "repository": {
+                                        "name": "cython",
+                                        "nameWithOwner": "cython/cython"
+                                    }
+                                },
                                 {
                                     "packageManager": "PIP",
                                     "packageName": "matplotlib",
@@ -14692,11 +14698,6 @@
                 "nodes": []
             }
         },
-        "LLNL/parelag": {
-            "dependencyGraphManifests": {
-                "nodes": []
-            }
-        },
         "LLNL/parelagmc": {
             "dependencyGraphManifests": {
                 "nodes": []
@@ -15113,16 +15114,6 @@
             }
         },
         "LLNL/radiuss-ci-info-action-go": {
-            "dependencyGraphManifests": {
-                "nodes": []
-            }
-        },
-        "LLNL/radiuss-stack": {
-            "dependencyGraphManifests": {
-                "nodes": []
-            }
-        },
-        "LLNL/radiuss-uberenv": {
             "dependencyGraphManifests": {
                 "nodes": []
             }
@@ -16301,6 +16292,11 @@
                 "nodes": []
             }
         },
+        "chaos/diod": {
+            "dependencyGraphManifests": {
+                "nodes": []
+            }
+        },
         "chaos/dpkg": {
             "dependencyGraphManifests": {
                 "nodes": []
@@ -16515,22 +16511,6 @@
                                     }
                                 }
                             ]
-                        }
-                    },
-                    {
-                        "dependencies": {
-                            "nodes": []
-                        }
-                    }
-                ]
-            }
-        },
-        "flux-framework/flux-core": {
-            "dependencyGraphManifests": {
-                "nodes": [
-                    {
-                        "dependencies": {
-                            "nodes": []
                         }
                     },
                     {
@@ -16951,6 +16931,11 @@
             }
         },
         "mfem/releases": {
+            "dependencyGraphManifests": {
+                "nodes": []
+            }
+        },
+        "mfem/tpls": {
             "dependencyGraphManifests": {
                 "nodes": []
             }
