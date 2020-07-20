@@ -14,6 +14,7 @@ function draw_force_graph(areaID) {
             height = stdTotalHeight * 2 - margin.top - margin.bottom;
         const legendRectSize = 15,
             legendSpacing = 4;
+        const ringSize = (Math.min(width - margin.left - margin.right, height - margin.top - margin.bottom) + 4) / 2;
 
         const colors = ['#6baed6', 'seagreen', '#3182bd'];
 
@@ -46,7 +47,7 @@ function draw_force_graph(areaID) {
         chart.append('circle')
             .attr('cx', 0)
             .attr('cy', 0)
-            .attr('r', (Math.min(width - margin.left - margin.right, height - margin.top - margin.bottom) + 4) / 2)
+            .attr('r', ringSize)
             .attr('fill', '#FFFFFF')
             .attr('stroke', '#000000');
 
@@ -168,6 +169,8 @@ function draw_force_graph(areaID) {
         // Options for graph view
         options.normalView = { name: 'normalView', text: 'Repos connected to dependencies', function: redraw };
         options.simplifiedView = { name: 'simplifiedView', text: 'Repos connected by shared dependencies', function: simplify };
+        options.orgView = { name: 'orgView', text: 'Organizations connected to dependecy organizations', function: organize };
+        options.simplifiedOrgView = { name: 'simplifiedOrgView', text: 'Organizations connected by shared dependencies', function: simplifyOrganize };
         const optionsArray = Object.values(options);
 
         // Options slider
@@ -198,7 +201,7 @@ function draw_force_graph(areaID) {
             let nodeArray = [node];
             let linkArray = [];
             for (var i = 0; i < depth; i++) {
-                linkArray = adjacentEdges(nodeArray);
+                linkArray = currentAdjacentEdges(nodeArray);
                 nodeArray = linksToNodes(linkArray);
                 nodeArray.forEach(d => {
                     d.depth = d.depth ? d.depth : i + 1;
@@ -209,6 +212,11 @@ function draw_force_graph(areaID) {
 
         // Finds all edges upon which nodes in array are incident
         function adjacentEdges(nodeArray) {
+            return data.links.filter(d => nodeArray.some(o => o.id == d.source.id) || nodeArray.some(o => o.id == d.target.id));
+        }
+
+        // Finds all edges upon which nodes in array are incident
+        function currentAdjacentEdges(nodeArray) {
             return links.filter(d => nodeArray.some(o => o.id == d.source.id) || nodeArray.some(o => o.id == d.target.id));
         }
 
@@ -235,6 +243,10 @@ function draw_force_graph(areaID) {
             return linksToNodes(adjacentEdges([node])).filter(d => d.id != node.id);
         }
 
+        function getCurrentNeighbors(node) {
+            return linksToNodes(currentAdjacentEdges([node])).filter(d => d.id != node.id);
+        }
+
         // Returns the links needed to form the complete graph on the node array
         function computeCompleteGraph(nodeArray) {
             const linkArray = [];
@@ -251,7 +263,7 @@ function draw_force_graph(areaID) {
             const newLinks = [];
             const newNodes = [];
 
-            nodes.forEach(d => {
+            data.nodes.forEach(d => {
                 if (d.package) {
                     const neighbors = getNeighbors(d).filter(d => d.notPackage);
                     if (neighbors.length > 1) {
@@ -376,6 +388,185 @@ function draw_force_graph(areaID) {
 
             nodes = newNodes;
             links = newLinks;
+
+            simulation.restart().alpha(1);
+        }
+
+        // Switches to view where orgs are connected by dependencies
+        function organize() {
+            const orgs = {};
+            data.nodes.forEach(d => {
+                const orgName = d.id.split('/')[0];
+                const package = d.package;
+                const notPackage = d.notPackage;
+                if (orgs.hasOwnProperty(orgName)) {
+                    orgs[orgName].package = orgs[orgName].package || package;
+                    orgs[orgName].notPackage = orgs[orgName].notPackage || notPackage;
+                } else {
+                    orgs[orgName] = { name: orgName, id: orgName, package: package, notPackage: notPackage };
+                }
+            })
+
+            nodes = Object.values(orgs);
+
+            const newLinks = [];
+
+            data.links.forEach(d => {
+                const sourceOrgName = d.source.id.split('/')[0];
+                const targetOrgName = d.target.id.split('/')[0];
+                newLinks.push({ source: sourceOrgName, target: targetOrgName, value: 1 });
+            })
+
+            links = newLinks;
+
+            simulation.nodes(nodes);
+            simulation.force('link').links(links).distance(10);
+            simulation.force('charge').strength(-30);
+
+            node.selectAll('circle').selectAll('title').remove();
+            link.selectAll('line').selectAll('title').remove();
+
+            node.selectAll('circle')
+                .data(nodes)
+                .join('circle')
+                    .attr('r', 7)
+                    .attr('fill', d => {
+                        if (d.notPackage && !d.package) {
+                            return colors[0];
+                        } else if (!d.notPackage && d.package) {
+                            return colors[1];
+                        } else {
+                            return colors[2];
+                        }
+                    })
+                .on('mouseover', d => {
+                    const bfsTree = getBFSTree(d, 11);
+                    const t = chart.transition().duration(300);
+                    node.selectAll('circle').transition(t)
+                        .attr('fill-opacity', n => n.depth != null ? Math.max(weightCurve(n.depth, 12), 0) : 0)
+                        .attr('stroke-opacity', n => n.depth != null ? Math.max(weightCurve(n.depth, 12), 0) : 0);
+                    link.selectAll('line').transition(t)
+                        .attr('stroke-opacity', n => n.source.depth != null && n.target.depth != null ? Math.max(weightCurve(Math.max(n.source.depth, n.target.depth), 12) * 0.2, 0) : 0.05);
+                })
+                .on('mouseout', d => {
+                    node.selectAll('circle').each(d => d.depth = null);
+                    const t = chart.transition().duration(300);
+                    node.selectAll('circle').transition(t)
+                        .attr('fill-opacity', 1)
+                        .attr('stroke-opacity', 1);
+                    link.selectAll('line').transition(t)
+                        .attr('stroke-opacity', 0.2);
+                });
+
+            link.selectAll('line')
+                .data(links)
+                .join(enter => enter.append('line'),
+                    update => update,
+                    exit => exit.remove())
+                    .attr('stroke-width', d => (100 - d.value) / 50);
+
+            link.selectAll('line').attr('stroke-opacity', 0.2)
+
+            node.selectAll('circle').append('title').text(d => d.id);
+            link.selectAll('line').append('title').text(d => `${d.source.name} : ${d.target.name}`);
+
+            simulation.restart().alpha(1);
+        }
+
+        function simplifyOrganize() {
+            const orgs = {};
+            data.nodes.forEach(d => {
+                const orgName = d.id.split('/')[0];
+                const package = d.package;
+                const notPackage = d.notPackage;
+                if (orgs.hasOwnProperty(orgName)) {
+                    orgs[orgName].package = orgs[orgName].package || package;
+                    orgs[orgName].notPackage = orgs[orgName].notPackage || notPackage;
+                } else {
+                    orgs[orgName] = { name: orgName, id: orgName, package: package, notPackage: notPackage };
+                }
+            });
+
+            nodes = Object.values(orgs);
+
+            const newLinks = [];
+
+            data.links.forEach(d => {
+                const sourceOrgName = d.source.id.split('/')[0];
+                const targetOrgName = d.target.id.split('/')[0];
+                newLinks.push({ source: orgs[sourceOrgName], target: orgs[targetOrgName], value: 1 });
+            });
+
+            links = newLinks;
+
+            const finalLinks = [];
+            const finalNodes = [];
+
+            nodes.forEach(d => {
+                if (d.package) {
+                    const neighbors = getCurrentNeighbors(d).filter(d => d.notPackage);
+                    if (neighbors.length > 1) {
+                        finalLinks.push.apply(finalLinks, computeCompleteGraph(neighbors));
+                    }
+                }
+                if (d.notPackage) {
+                    finalNodes.push(d);
+                }
+            });
+
+            nodes = finalNodes;
+            links = finalLinks;
+
+            simulation.nodes(nodes);
+            simulation.force('link').links(links).distance(100);
+            simulation.force('charge').strength(-100);
+
+            node.selectAll('circle').selectAll('title').remove();
+            link.selectAll('line').selectAll('title').remove();
+
+            node.selectAll('circle')
+                .data(nodes)
+                .join('circle')
+                    .attr('r', 7)
+                    .attr('fill', d => {
+                        if (d.notPackage && !d.package) {
+                            return colors[0];
+                        } else if (!d.notPackage && d.package) {
+                            return colors[1];
+                        } else {
+                            return colors[2];
+                        }
+                    })
+                .on('mouseover', d => {
+                    const bfsTree = getBFSTree(d, 11);
+                    const t = chart.transition().duration(300);
+                    node.selectAll('circle').transition(t)
+                        .attr('fill-opacity', n => n.depth != null ? Math.max(weightCurve(n.depth, 12), 0) : 0)
+                        .attr('stroke-opacity', n => n.depth != null ? Math.max(weightCurve(n.depth, 12), 0) : 0);
+                    link.selectAll('line').transition(t)
+                        .attr('stroke-opacity', n => n.source.depth != null && n.target.depth != null ? Math.max(weightCurve(Math.max(n.source.depth, n.target.depth), 12) * 0.2, 0) : 0.05);
+                })
+                .on('mouseout', d => {
+                    node.selectAll('circle').each(d => d.depth = null);
+                    const t = chart.transition().duration(300);
+                    node.selectAll('circle').transition(t)
+                        .attr('fill-opacity', 1)
+                        .attr('stroke-opacity', 1);
+                    link.selectAll('line').transition(t)
+                        .attr('stroke-opacity', 0.2);
+                });
+
+            link.selectAll('line')
+                .data(links)
+                .join(enter => enter.append('line'),
+                    update => update,
+                    exit => exit.remove())
+                    .attr('stroke-width', d => (100 - d.value) / 50);
+
+            link.selectAll('line').attr('stroke-opacity', 0.2)
+
+            node.selectAll('circle').append('title').text(d => d.id);
+            link.selectAll('line').append('title').text(d => `${d.source.name} : ${d.target.name}`);
 
             simulation.restart().alpha(1);
         }
