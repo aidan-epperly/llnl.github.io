@@ -22,6 +22,7 @@ layout: default
 <script type="text/javascript" src="https://cdn.llnl.gov/d3-v4-cloud/1.2.2/build/d3.layout.cloud.js"></script>
 <script type="text/javascript" src="https://cdn.llnl.gov/d3-simple-slider/1.8.0/d3-simple-slider.min.js"></script>
 <script type="text/javascript" src="../../js/explore/helpers.js"></script>
+<script type="text/javascript" src="../../js/explore/largeRepos/generate_popularRepos.js"></script>
 
 <!-- Load drawing JS -->
 <script type="text/javascript" src="../../js/explore/trendyRepos/generate_trendyRepos.js"></script>
@@ -41,13 +42,13 @@ layout: default
         stdLgndDotRadius = 5,
         stdLgndSpacing = 20;
     // Call draw functions
-    var trendyReposURL = ghDataDir + '/labRepos_Activity.json';
-    var trendyReposFiles = [trendyReposURL];
-    var mostPopularRepositories = [];
+    var trendyReposURL = ghDataDir + '/labRepos_ActivityCommits.json';
+    var popularityURL = ghDataDir + '/labReposInfo.json';
+    var trendyReposFiles = [trendyReposURL, popularityURL];
     var cutOffWeeks = 2;
     var cutOffMonths = 2;
     Promise.all(trendyReposFiles.map(url => d3.json(url))).then(values => {
-        trendyRepositories = generate_trendyRepos(values[0], cutOffWeeks + 1, cutOffMonths);
+        trendyRepositories = generate_trendyRepos(values[0], cutOffWeeks + 1, cutOffMonths, generate_popularRepos(values[1], 10));
     }).then(() => {
         draw_line_repoActivity('repoActivityChart');
     });

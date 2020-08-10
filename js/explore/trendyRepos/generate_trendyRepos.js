@@ -1,4 +1,4 @@
-function generate_trendyRepos(obj, cutoffWeeks, cutoffMonths) {
+function generate_trendyRepos(obj, cutoffWeeks, cutoffMonths, mostPopularRepos) {
     const data = [];
 
     for (var repo in obj['data']) {
@@ -10,9 +10,13 @@ function generate_trendyRepos(obj, cutoffWeeks, cutoffMonths) {
         //console.debug({ name: repo, entries: weekEntries, measure: measure });
     }
 
+    console.debug(mostPopularRepos);
+
     data.sort((a,b) => b.measure - a.measure);
 
-    return data.slice(0, 10);
+    console.debug(data);
+
+    return data.filter(d => !mostPopularRepos.some(o => `${o.owner}/${o.name}` == d.name)).slice(0, 10);
 
     function sumTotal(array) {
         let sum = 0;
