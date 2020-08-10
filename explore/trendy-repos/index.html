@@ -13,10 +13,7 @@ layout: default
 
 <!-- Preset vis display areas -->
 <center>
-    <svg class="cluster"></svg>
-    <br /> <svg class="repoCreationHistory"></svg>
-    <br /> <svg class="repoActivityChart"></svg>
-    <br /> <svg class="popularLicenses"></svg>
+    <svg class="repoActivityChart"></svg>
 </center>
 
 <!-- Load basic D3 and helper scripts -->
@@ -27,11 +24,8 @@ layout: default
 <script type="text/javascript" src="../../js/explore/helpers.js"></script>
 
 <!-- Load drawing JS -->
-<script type="text/javascript" src="../../js/explore/largeRepos/cluster_repoSize.js"></script>
-<script type="text/javascript" src="../../js/explore/largeRepos/line_repoActivity.js"></script>
-<script type="text/javascript" src="../../js/explore/largeRepos/generate_popularRepos.js"></script>
-<script type="text/javascript" src="../../js/explore/largeRepos/line_repoCreationHistory.js"></script>
-<script type="text/javascript" src="../../js/explore/largeRepos/sunburst_licenses.js"></script>
+<script type="text/javascript" src="../../js/explore/trendyRepos/generate_trendyRepos.js"></script>
+<script type="text/javascript" src="../../js/explore/trendyRepos/line_repoActivity.js"></script>
 
 <script>
     // GiHub Data Directory
@@ -47,17 +41,15 @@ layout: default
         stdLgndDotRadius = 5,
         stdLgndSpacing = 20;
     // Call draw functions
-    var popularityURL = ghDataDir + '/labReposInfo.json';
-    var popularityFiles = [popularityURL];
+    var trendyReposURL = ghDataDir + '/labRepos_Activity.json';
+    var trendyReposFiles = [trendyReposURL];
     var mostPopularRepositories = [];
-    var cutOffSize = 10;
-    Promise.all(popularityFiles.map(url => d3.json(url))).then(values => {
-        mostPopularRepositories = generate_popularRepos(values[0], cutOffSize);
+    var cutOffWeeks = 2;
+    var cutOffMonths = 2;
+    Promise.all(trendyReposFiles.map(url => d3.json(url))).then(values => {
+        trendyRepositories = generate_trendyRepos(values[0], cutOffWeeks + 1, cutOffMonths);
     }).then(() => {
-        draw_cluster('cluster');
-        draw_line_repoCreationHistory('repoCreationHistory', mostPopularRepositories);
         draw_line_repoActivity('repoActivityChart');
-        draw_sunburst_licenses('popularLicenses');
     });
     
 </script>

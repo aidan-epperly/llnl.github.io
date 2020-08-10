@@ -13,23 +13,25 @@ function draw_line_repoActivity(areaID, repoNameWOwner) {
 
     // Draw graph from data
     function drawGraph(data, areaID) {
-        var graphHeader =`Activity Across Top ${cutOffSize} Repos by Stars [Default Branches, 1 Year]`;
+        var graphHeader =`Activity Across Most Trendy Repos [Default Branches, 1 Year]`;
 
         // Removes most recent week from graph to avoid apparent dip in activity
         data.pop();
 
-        const repoKeys = mostPopularRepositories.map(d => `${d.owner}/${d.name}`);
+        console.debug(data);
+
+        const repoKeys = trendyRepositories.map(d => d.name);
+
+        console.debug(repoKeys);
 
         data.forEach(d => {
             d.date = parseTime(d.date);
         })
-
-        console.debug(repoKeys);
-        console.debug(data);
         
         data = d3.stack()
-            .keys(repoKeys)
-            .order(d3.stackOrderAscending)(data);
+            .keys(repoKeys)(data);
+
+        console.debug(data);
 
         var margin = { top: stdMargin.top, right: stdMargin.right, bottom: stdMargin.bottom, left: stdMargin.left * 1.15 },
             width = stdTotalWidth * 2 - margin.left - margin.right,
@@ -58,8 +60,8 @@ function draw_line_repoActivity(areaID, repoNameWOwner) {
 
         var colors = d3
             .scaleOrdinal()
-            .domain([0, mostPopularRepositories.length - 1])
-            .range(d3.quantize(d3.interpolate('#3182bd', '#d1e3f0'), mostPopularRepositories.length));
+            .domain(trendyRepositories)
+            .range(d3.quantize(d3.interpolate('#3182bd', '#FFFFFF'), trendyRepositories.length + 1));
 
         // d3.quantize(d3.interpolateInferno, data.length + 1)
 
@@ -163,8 +165,8 @@ function draw_line_repoActivity(areaID, repoNameWOwner) {
             .selectAll('path')
             .data(data)
                 .join('path')
-                .attr('fill', d => colors(d.index))
-                .attr('stroke', 'black')
+                .attr('fill', d => colors(d.key))
+                .attr('stroke', 'steelblue')
                 .attr('d', area);
 
         // Draw date-of-interest reference lines
@@ -266,8 +268,8 @@ function draw_line_repoActivity(areaID, repoNameWOwner) {
             var numReposFound = repoCounts[timestamp];
             if (numReposFound == numReposExpected) {
                 var dateData = { date: timestamp };
-                for (var repos of mostPopularRepositories) {
-                    dateData[`${repos['owner']}/${repos['name']}`] = repoData[timestamp][`${repos['owner']}/${repos['name']}`];
+                for (var repos of trendyRepositories) {
+                    dateData[repos['name']] = repoData[timestamp][repos['name']];
                 }
                 data.push(dateData);
             } else {
