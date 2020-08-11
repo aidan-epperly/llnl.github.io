@@ -50,13 +50,16 @@ layout: default
         stdLgndSpacing = 20;
     // Call draw functions
     var popularityURL = ghDataDir + '/labReposInfo.json';
-    var popularityFiles = [popularityURL];
+    var linesURL = ghDataDir + '/labRepos_ActivityLines.json';
+    var popularityFiles = [popularityURL, linesURL];
     var mostPopularRepositories = [];
     var cutOffSize = 10;
+    var commits = false;
     Promise.all(popularityFiles.map(url => d3.json(url))).then(values => {
-        mostPopularRepositories = generate_popularRepos(values[0], cutOffSize);
+        mostPopularRepositories = generate_popularRepos(values[0], values[1], commits, cutOffSize);
+        console.debug(mostPopularRepositories);
     }).then(() => {
-        draw_cluster('cluster');
+        draw_cluster('cluster', commits);
         draw_line_repoCreationHistory('repoCreationHistory', mostPopularRepositories);
         draw_line_repoActivity('repoActivityChart');
         draw_sunburst_licenses('popularLicenses');

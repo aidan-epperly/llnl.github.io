@@ -1,16 +1,17 @@
 /* Creates cluster graph visualization for webpage */
-function draw_cluster(areaID) {
+function draw_cluster(areaID, byCommits=true) {
     // load data file, process data, and draw visualization
     var url = ghDataDir + '/labReposInfo.json';
-    var files = [url];
+    var lineUrl = ghDataDir + '/labRepos_ActivityLines.json';
+    var files = [url, lineUrl];
     Promise.all(files.map(url => d3.json(url))).then(values => {
-        var data = reformatData(values[0]);
+        var data = reformatData(values[0], values[1]);
         drawGraph(data, areaID);
     });
 
     function drawGraph(data, areaID) {
         const margin = { top: stdMargin.top, right: stdMargin.right, bottom: stdMargin.bottom, left: stdMargin.left },
-            width = 500,
+            width = 1000,
             height = 500;
         
         const chart = d3
@@ -19,12 +20,12 @@ function draw_cluster(areaID) {
                 .attr('height', height)
                 .append('g');
         
-        const pack = (data, starWeight=1, forkWeight=0, contributorWeight=0) => d3.pack()
+        const pack = (data, starWeight=1, forkWeight=0, contributorWeight=0, lineWeight=0) => d3.pack()
             .size([width, height])
             .padding(2)
             (d3.hierarchy(data)
-                .sum(d => (d.stars * starWeight + d.forks * forkWeight + d.contributors * contributorWeight) / (starWeight + forkWeight + contributorWeight))
-                .sort((a, b) => (b.stars * starWeight + b.forks * forkWeight + b.contributors * contributorWeight - (a.stars * starWeight + a.forks * forkWeight + a.contributors * contributorWeight)) / (starWeight + forkWeight + contributorWeight)));
+                .sum(d => (d.stars * starWeight + d.forks * forkWeight + d.contributors * contributorWeight + d.additions * lineWeight) / (starWeight + forkWeight + contributorWeight + lineWeight))
+                .sort((a, b) => (b.stars * starWeight + b.forks * forkWeight + b.contributors * contributorWeight + b.additions * lineWeight - (a.stars * starWeight + a.forks * forkWeight + a.contributors * contributorWeight + a.additions * lineWeight)) / (starWeight + forkWeight + contributorWeight + lineWeight)));
 
         const nodeGroup = chart.append('g');
 
@@ -38,10 +39,10 @@ function draw_cluster(areaID) {
 
         chart.call(tip);
 
-        let root = pack({ children: data }, 1, 0, 0);
+        let root = {};
 
-        function update(s, f, c) {
-            root = pack({ children: data }, s, f, c);
+        function update(s, f, c, l) {
+            root = pack({ children: data }, s, f, c, l);
 
             const radiusMax = d3.max(root.children, d => d.r);
 
@@ -64,8 +65,16 @@ function draw_cluster(areaID) {
                 .on('mouseover', tip.show)
                 .on('mouseout', tip.hide);
         }
-        
-        update(1, 0, 0);
+
+        if (byCommits) {
+            console.debug('Stars');
+            update(1, 0, 0, 0);
+            console.debug(root);
+        } else {
+            console.debug('Lines');
+            update(0, 0, 0, 1);
+            console.debug(root);
+        }
 
         const label = chart.append('g');
 
@@ -92,13 +101,29 @@ function draw_cluster(areaID) {
     }
 
     // Turn json obj into desired working data
-    function reformatData(obj) {
+    function reformatData(obj0, obj1) {
         const data = [];
+        const lineData = computeTotalAdditions(obj1);
+
+        for (var repoWOwner in obj0['data']) {
+            const repoAndOwner = repoWOwner.split('/');
+            const repoObj = obj0['data'][repoWOwner];
+            data.push({ name: repoAndOwner[1], owner: repoAndOwner[0], forks: repoObj['forks']['totalCount'], stars: repoObj['stargazers']['totalCount'], additions: lineData[repoWOwner], contributors: repoObj['mentionableUsers']['totalCount'] });
+        }
+
+        return data;
+    }
+
+    function computeTotalAdditions(obj) {
+        const data = {};
 
         for (var repoWOwner in obj['data']) {
-            const repoAndOwner = repoWOwner.split('/');
-            const repoObj = obj['data'][repoWOwner];
-            data.push({ name: repoAndOwner[1], owner: repoAndOwner[0], forks: repoObj['forks']['totalCount'], stars: repoObj['stargazers']['totalCount'], contributors: repoObj['mentionableUsers']['totalCount'] });
+            let total = 0;
+
+            for (var array of obj['data'][repoWOwner]) {
+                total += array[1];
+            }
+            returnObj = data[repoWOwner] = total;
         }
 
         return data;

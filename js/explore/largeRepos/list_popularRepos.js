@@ -8,7 +8,7 @@ function draw_popularRepos(areaID, columns=2, orthogonalOrdering=false) {
 
         const rowSpacing = 5,
             columnSpacing = 15,
-            fontSize = 14;
+            fontSize = 10;
         const margin = { top: stdMargin.top, right: stdMargin.right, bottom: stdMargin.bottom, left: stdMargin.left },
             width = stdTotalWidth * 2,
             height = (fontSize + rowSpacing) * (data[0].entries.length + 1);
@@ -47,12 +47,12 @@ function draw_popularRepos(areaID, columns=2, orthogonalOrdering=false) {
             .join('g')
                 .attr('transform', d => `translate(${columnSize * d.number + columnSpacing * d.number},${fontSize + rowSpacing})`);
 
-        columns.selectAll('text')
+        const columnText = columns.selectAll('text')
             .data(d => textData.filter(o => o.number == d.number))
             .join('text')
                 .attr('font-size', fontSize)
                 .attr('y', (d, i) => (fontSize + rowSpacing) * i)
-                .html(d => `<tspan style="font-weight: bold">${d.position}.</tspan> <a xlink:href=https://software.llnl.gov/repo/#/${d.entry.owner}/${d.entry.name}>${d.entry.owner}/${d.entry.name}</a>`);
+                .html(d => `<tspan style="font-weight: bold" font-size="14px">${d.position}.</tspan> <a xlink:href=https://software.llnl.gov/repo/#/${d.entry.owner}/${d.entry.name}>${d.entry.owner}/${d.entry.name}</a>`);
 
         chart
             .append('g')
@@ -63,7 +63,9 @@ function draw_popularRepos(areaID, columns=2, orthogonalOrdering=false) {
                     .attr('text-anchor', 'middle')
                     .text(graphHeader);
 
-        
+        columnText.nodes().forEach(node => {
+            node.setAttribute('font-size', Math.min(14, Math.floor(fontSize * columnSize / (node.getComputedTextLength() + 5))) + 'px')
+        });
     }
 
     // Turn json obj into desired working data
