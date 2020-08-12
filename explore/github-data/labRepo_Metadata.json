@@ -1379,7 +1379,7 @@
         "description": null,
         "name": "GMLC-TDC/helics.org",
         "topics": null,
-        "website": "https://helics.org/"
+        "website": "https://www.helics.org/"
     },
     "GMLC-TDC/helics_benchmark_results": {
         "description": "Repo containing helics_benchmark results and processing code",
@@ -1412,10 +1412,13 @@
         "website": "https://beta.mybinder.org/v2/gh/gmlc-tdc/pesgm-2019-helics-tutorial/master?urlpath=lab/tree/notebooks/Introduction.ipynb"
     },
     "GMLC-TDC/pyhelics": {
-        "description": null,
+        "description": "CFFI Python interface for HELICS",
         "name": "GMLC-TDC/pyhelics",
-        "topics": null,
-        "website": null
+        "topics": [
+            "helics",
+            "python"
+        ],
+        "website": "https://python.helics.org"
     },
     "GMLC-TDC/toml11": {
         "description": "TOML for Modern C++",
