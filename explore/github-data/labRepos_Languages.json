@@ -4677,16 +4677,19 @@
             "languages": {
                 "nodes": [
                     {
-                        "name": "Erlang"
+                        "name": "Python"
+                    },
+                    {
+                        "name": "C"
                     },
                     {
                         "name": "Shell"
                     },
                     {
-                        "name": "HTML"
+                        "name": "Erlang"
                     },
                     {
-                        "name": "Python"
+                        "name": "HTML"
                     },
                     {
                         "name": "Puppet"
@@ -4695,19 +4698,28 @@
                         "name": "CSS"
                     },
                     {
+                        "name": "Makefile"
+                    },
+                    {
                         "name": "Hack"
                     },
                     {
                         "name": "PHP"
                     },
                     {
+                        "name": "TSQL"
+                    },
+                    {
                         "name": "Dockerfile"
+                    },
+                    {
+                        "name": "C++"
                     },
                     {
                         "name": "JavaScript"
                     }
                 ],
-                "totalCount": 10
+                "totalCount": 14
             }
         },
         "LLNL/HyDAGS": {
@@ -13219,10 +13231,10 @@
                         "name": "JavaScript"
                     },
                     {
-                        "name": "CMake"
+                        "name": "Objective-C"
                     },
                     {
-                        "name": "Objective-C"
+                        "name": "CMake"
                     },
                     {
                         "name": "CSS"
@@ -13234,13 +13246,13 @@
                         "name": "PHP"
                     },
                     {
+                        "name": "QML"
+                    },
+                    {
                         "name": "Makefile"
                     },
                     {
                         "name": "Cuda"
-                    },
-                    {
-                        "name": "QML"
                     },
                     {
                         "name": "NSIS"
@@ -13249,10 +13261,10 @@
                         "name": "PLSQL"
                     },
                     {
-                        "name": "Perl"
+                        "name": "QMake"
                     },
                     {
-                        "name": "QMake"
+                        "name": "Perl"
                     },
                     {
                         "name": "Fortran"
@@ -13285,10 +13297,13 @@
                         "name": "Assembly"
                     },
                     {
+                        "name": "Dockerfile"
+                    },
+                    {
                         "name": "VBScript"
                     }
                 ],
-                "totalCount": 28
+                "totalCount": 29
             }
         },
         "visit-dav/visit-website": {

@@ -16,6 +16,14 @@
             },
             "nameWithOwner": "AMReX-Astro/Nyx"
         },
+        "AMReX-Codes/ATPESC-codes": {
+            "labContributors": {
+                "nodes": [
+                    "gardner48"
+                ]
+            },
+            "nameWithOwner": "AMReX-Codes/ATPESC-codes"
+        },
         "AMReX-Codes/amrex": {
             "labContributors": {
                 "nodes": [
@@ -126,6 +134,14 @@
             },
             "nameWithOwner": "CCSI-Toolset/FOQUS"
         },
+        "CEED/FMS": {
+            "labContributors": {
+                "nodes": [
+                    "v-dobrev"
+                ]
+            },
+            "nameWithOwner": "CEED/FMS"
+        },
         "CEED/Remhos": {
             "labContributors": {
                 "nodes": [
@@ -208,14 +224,6 @@
                 ]
             },
             "nameWithOwner": "CSUChico-CINS465/CINS465-Sum20-Examples"
-        },
-        "CSUChico-CSCI221/DataLabWriteUp": {
-            "labContributors": {
-                "nodes": [
-                    "javawolfpack"
-                ]
-            },
-            "nameWithOwner": "CSUChico-CSCI221/DataLabWriteUp"
         },
         "CSUChico-CSCI340/CSCI340-Course-Materials": {
             "labContributors": {
@@ -497,6 +505,14 @@
             },
             "nameWithOwner": "GridTools/gt4py"
         },
+        "GridTools/serialbox": {
+            "labContributors": {
+                "nodes": [
+                    "jdahm"
+                ]
+            },
+            "nameWithOwner": "GridTools/serialbox"
+        },
         "HPCPowerStack/hpcpowerstack.github.io": {
             "labContributors": {
                 "nodes": [
@@ -505,14 +521,6 @@
                 ]
             },
             "nameWithOwner": "HPCPowerStack/hpcpowerstack.github.io"
-        },
-        "Homebrew/homebrew-core": {
-            "labContributors": {
-                "nodes": [
-                    "sbromberger"
-                ]
-            },
-            "nameWithOwner": "Homebrew/homebrew-core"
         },
         "IBM/CAST": {
             "labContributors": {
@@ -1451,6 +1459,14 @@
             },
             "nameWithOwner": "bvanessen/lbann"
         },
+        "c64cryptoboy/ChiptuneSAK": {
+            "labContributors": {
+                "nodes": [
+                    "IanLee1521"
+                ]
+            },
+            "nameWithOwner": "c64cryptoboy/ChiptuneSAK"
+        },
         "candcook/FOQUS": {
             "labContributors": {
                 "nodes": [
@@ -1635,14 +1651,6 @@
             },
             "nameWithOwner": "csuchico-csci551/AutomaticVectorization"
         },
-        "csuchico-csci551/CSCI551-Course-Materials": {
-            "labContributors": {
-                "nodes": [
-                    "javawolfpack"
-                ]
-            },
-            "nameWithOwner": "csuchico-csci551/CSCI551-Course-Materials"
-        },
         "csuchico-csci551/CodeExamplesF19": {
             "labContributors": {
                 "nodes": [
@@ -1650,14 +1658,6 @@
                 ]
             },
             "nameWithOwner": "csuchico-csci551/CodeExamplesF19"
-        },
-        "csuchico-csci551/Conway-s-Game-of-Life-MPI": {
-            "labContributors": {
-                "nodes": [
-                    "javawolfpack"
-                ]
-            },
-            "nameWithOwner": "csuchico-csci551/Conway-s-Game-of-Life-MPI"
         },
         "csuchico-csci551/JetsonCluster": {
             "labContributors": {
@@ -3440,6 +3440,14 @@
             },
             "nameWithOwner": "rountree/exegetical"
         },
+        "rountree/flux-power-mgr": {
+            "labContributors": {
+                "nodes": [
+                    "tpatki"
+                ]
+            },
+            "nameWithOwner": "rountree/flux-power-mgr"
+        },
         "rpm-software-management/mock": {
             "labContributors": {
                 "nodes": [
@@ -3487,14 +3495,6 @@
                 ]
             },
             "nameWithOwner": "rust-ndarray/ndarray"
-        },
-        "rwols/yaml-archive": {
-            "labContributors": {
-                "nodes": [
-                    "correaa"
-                ]
-            },
-            "nameWithOwner": "rwols/yaml-archive"
         },
         "ryan-mast/ninja": {
             "labContributors": {
@@ -3559,6 +3559,14 @@
                 ]
             },
             "nameWithOwner": "serge-sans-paille/frozen"
+        },
+        "slmcbane/StylusOptimization": {
+            "labContributors": {
+                "nodes": [
+                    "chldkdtn"
+                ]
+            },
+            "nameWithOwner": "slmcbane/StylusOptimization"
         },
         "sonhte/ninja": {
             "labContributors": {
