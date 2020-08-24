@@ -17,7 +17,7 @@ function draw_line_repoStarHistory(areaID) {
 
         for (var d in data) {
             data[d] = data[d].map(o => {
-                return { date: parseTime(o.date), value: +o.value };
+                return { date: parseTime(o.date), value: +o.value, name: o.name };
             })
         }
 
@@ -48,14 +48,16 @@ function draw_line_repoStarHistory(areaID) {
             .range([0, width]);
 
         var y = d3
-            .scaleLinear()
-            .domain([0, d3.max(datrange)])
+            .scaleLog()
+            .domain([1, d3.max(datrange)])
             .range([height, 0])
             .nice();
 
         var xAxis = d3.axisBottom().scale(x);
 
-        var yAxis = d3.axisLeft().scale(y);
+        var yAxis = d3.axisLeft()
+            .scale(y)
+            .ticks(10, d3.format('d'));
 
         var tip = d3
             .tip()
@@ -66,7 +68,7 @@ function draw_line_repoStarHistory(areaID) {
                 if (d.value == 1) {
                     stars = ' Star';
                 }
-                return '<sub>[' + formatTime(d.date) + ']</sub>' + '<br>' + d.value + stars;
+                return '<sub>[' + formatTime(d.date) + ']</sub>' + '<br>' + d.name + '<br>' + d.value + stars;
             });
 
         var valueline = d3
@@ -183,7 +185,7 @@ function draw_line_repoStarHistory(areaID) {
             // Format data for graphing
             data[`${repoObj.owner}/${repoObj.name}`] = [];
             for (var timestamp in starCounts) {
-                data[`${repoObj.owner}/${repoObj.name}`].push({ date: timestamp, value: starCounts[timestamp] });
+                data[`${repoObj.owner}/${repoObj.name}`].push({ date: timestamp, value: starCounts[timestamp], name: `${repoObj.owner}/${repoObj.name}` });
             }
         }
 
