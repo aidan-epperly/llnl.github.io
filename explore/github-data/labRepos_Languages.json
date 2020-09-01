@@ -1660,6 +1660,9 @@
                         "name": "C"
                     },
                     {
+                        "name": "C++"
+                    },
+                    {
                         "name": "Python"
                     },
                     {
@@ -1667,9 +1670,6 @@
                     },
                     {
                         "name": "Cuda"
-                    },
-                    {
-                        "name": "C++"
                     },
                     {
                         "name": "Makefile"
@@ -2475,6 +2475,16 @@
                 "totalCount": 1
             }
         },
+        "ESGF/esgf-keycloak-user-migration": {
+            "languages": {
+                "nodes": [
+                    {
+                        "name": "Python"
+                    }
+                ],
+                "totalCount": 1
+            }
+        },
         "ESGF/esgf-map": {
             "languages": {
                 "nodes": [
@@ -2773,6 +2783,19 @@
                 "totalCount": 3
             }
         },
+        "ESGF/future-architecture": {
+            "languages": {
+                "nodes": [
+                    {
+                        "name": "HTML"
+                    },
+                    {
+                        "name": "CSS"
+                    }
+                ],
+                "totalCount": 2
+            }
+        },
         "ESGF/icnwg": {
             "languages": {
                 "nodes": [
@@ -2838,6 +2861,25 @@
                     }
                 ],
                 "totalCount": 5
+            }
+        },
+        "GEOSX/LvArray": {
+            "languages": {
+                "nodes": [
+                    {
+                        "name": "C++"
+                    },
+                    {
+                        "name": "CMake"
+                    },
+                    {
+                        "name": "Python"
+                    },
+                    {
+                        "name": "C"
+                    }
+                ],
+                "totalCount": 4
             }
         },
         "GLVis/doxygen": {
@@ -3014,13 +3056,13 @@
             "languages": {
                 "nodes": [
                     {
+                        "name": "Python"
+                    },
+                    {
                         "name": "C"
                     },
                     {
                         "name": "C++"
-                    },
-                    {
-                        "name": "Python"
                     },
                     {
                         "name": "Shell"
@@ -4107,6 +4149,16 @@
                 "totalCount": 24
             }
         },
+        "LLNL/CRADL": {
+            "languages": {
+                "nodes": [
+                    {
+                        "name": "Python"
+                    }
+                ],
+                "totalCount": 1
+            }
+        },
         "LLNL/Caliper": {
             "languages": {
                 "nodes": [
@@ -4797,6 +4849,9 @@
                         "name": "Fortran"
                     },
                     {
+                        "name": "M4"
+                    },
+                    {
                         "name": "Makefile"
                     },
                     {
@@ -4806,7 +4861,7 @@
                         "name": "Shell"
                     }
                 ],
-                "totalCount": 6
+                "totalCount": 7
             }
         },
         "LLNL/LULESH": {
@@ -5418,10 +5473,10 @@
                         "name": "C++"
                     },
                     {
-                        "name": "Shell"
+                        "name": "CMake"
                     },
                     {
-                        "name": "CMake"
+                        "name": "Shell"
                     },
                     {
                         "name": "Python"
@@ -6137,6 +6192,49 @@
                 "totalCount": 1
             }
         },
+        "LLNL/WRF-IBM": {
+            "languages": {
+                "nodes": [
+                    {
+                        "name": "Fortran"
+                    },
+                    {
+                        "name": "Roff"
+                    },
+                    {
+                        "name": "C"
+                    },
+                    {
+                        "name": "Shell"
+                    },
+                    {
+                        "name": "C++"
+                    },
+                    {
+                        "name": "Makefile"
+                    },
+                    {
+                        "name": "Perl"
+                    },
+                    {
+                        "name": "M4"
+                    },
+                    {
+                        "name": "EmberScript"
+                    },
+                    {
+                        "name": "NCL"
+                    },
+                    {
+                        "name": "sed"
+                    },
+                    {
+                        "name": "Forth"
+                    }
+                ],
+                "totalCount": 12
+            }
+        },
         "LLNL/WVL": {
             "languages": {
                 "nodes": [
@@ -6458,10 +6556,10 @@
                         "name": "Shell"
                     },
                     {
-                        "name": "Asymptote"
+                        "name": "C"
                     },
                     {
-                        "name": "C"
+                        "name": "Asymptote"
                     },
                     {
                         "name": "Makefile"
@@ -8486,13 +8584,16 @@
                         "name": "Makefile"
                     },
                     {
+                        "name": "Lua"
+                    },
+                    {
                         "name": "M4"
                     },
                     {
                         "name": "Shell"
                     }
                 ],
-                "totalCount": 4
+                "totalCount": 5
             }
         },
         "LLNL/mpileaks": {
@@ -10052,10 +10153,10 @@
             "languages": {
                 "nodes": [
                     {
-                        "name": "C"
+                        "name": "C++"
                     },
                     {
-                        "name": "C++"
+                        "name": "C"
                     },
                     {
                         "name": "CMake"
@@ -11647,8 +11748,15 @@
         },
         "flux-framework/flux-research-artifacts": {
             "languages": {
-                "nodes": [],
-                "totalCount": 0
+                "nodes": [
+                    {
+                        "name": "Python"
+                    },
+                    {
+                        "name": "Shell"
+                    }
+                ],
+                "totalCount": 2
             }
         },
         "flux-framework/flux-rs": {
@@ -12454,10 +12562,10 @@
                         "name": "Assembly"
                     },
                     {
-                        "name": "C++"
+                        "name": "Makefile"
                     },
                     {
-                        "name": "Makefile"
+                        "name": "C++"
                     },
                     {
                         "name": "Lua"
@@ -12572,6 +12680,9 @@
                         "name": "Python"
                     },
                     {
+                        "name": "Ada"
+                    },
+                    {
                         "name": "Roff"
                     },
                     {
@@ -12632,10 +12743,10 @@
                         "name": "CSS"
                     },
                     {
-                        "name": "Tcl"
+                        "name": "MATLAB"
                     },
                     {
-                        "name": "Ada"
+                        "name": "Tcl"
                     },
                     {
                         "name": "SMT"
@@ -12647,10 +12758,10 @@
                         "name": "Awk"
                     },
                     {
-                        "name": "MATLAB"
+                        "name": "X10"
                     },
                     {
-                        "name": "X10"
+                        "name": "NASL"
                     },
                     {
                         "name": "PigLatin"
@@ -12695,7 +12806,7 @@
                         "name": "Common Lisp"
                     }
                 ],
-                "totalCount": 54
+                "totalCount": 55
             }
         },
         "rose-compiler/rose-develop": {
@@ -12970,10 +13081,13 @@
                         "name": "Python"
                     },
                     {
+                        "name": "CMake"
+                    },
+                    {
                         "name": "Dockerfile"
                     }
                 ],
-                "totalCount": 4
+                "totalCount": 5
             }
         },
         "spack/spack-tutorial": {
@@ -13194,13 +13308,13 @@
                         "name": "Objective-C++"
                     },
                     {
+                        "name": "Dockerfile"
+                    },
+                    {
                         "name": "Gnuplot"
                     },
                     {
                         "name": "Awk"
-                    },
-                    {
-                        "name": "Dockerfile"
                     },
                     {
                         "name": "Pawn"

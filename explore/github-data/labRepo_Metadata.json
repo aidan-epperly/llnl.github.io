@@ -983,6 +983,12 @@
         "topics": null,
         "website": null
     },
+    "ESGF/esgf-keycloak-user-migration": {
+        "description": "Scripts for migrating user information to Keycloak.",
+        "name": "ESGF/esgf-keycloak-user-migration",
+        "topics": null,
+        "website": null
+    },
     "ESGF/esgf-map": {
         "description": "KML ESGF map generator",
         "name": "ESGF/esgf-map",
@@ -1114,6 +1120,12 @@
         "topics": null,
         "website": null
     },
+    "ESGF/future-architecture": {
+        "description": "Blog site for ESGF Future Architecture Project",
+        "name": "ESGF/future-architecture",
+        "topics": null,
+        "website": null
+    },
     "ESGF/icnwg": {
         "description": "International Climate Network Working Group",
         "name": "ESGF/icnwg",
@@ -1136,6 +1148,20 @@
         "description": "Orientation Reconstruction for Synchrotron X-ray Data",
         "name": "FrankieLi/IceNine",
         "topics": null,
+        "website": ""
+    },
+    "GEOSX/LvArray": {
+        "description": null,
+        "name": "GEOSX/LvArray",
+        "topics": [
+            "radiuss",
+            "portability",
+            "llnl",
+            "hpc",
+            "gpu-computing",
+            "cpp",
+            "c-plus-plus"
+        ],
         "website": ""
     },
     "GLVis/doxygen": {
@@ -1566,6 +1592,12 @@
             "cpp",
             "simulation"
         ],
+        "website": null
+    },
+    "LLNL/CRADL": {
+        "description": "Machine learning proxy application for capturing performance metrics of inference algorithms operating on mesh data from multi-physics codes.",
+        "name": "LLNL/CRADL",
+        "topics": null,
         "website": null
     },
     "LLNL/Caliper": {
@@ -2473,6 +2505,12 @@
         ],
         "website": null
     },
+    "LLNL/WRF-IBM": {
+        "description": "The Weather Research and Forecasting model with the immersed boundary method",
+        "name": "LLNL/WRF-IBM",
+        "topics": null,
+        "website": null
+    },
     "LLNL/WVL": {
         "description": null,
         "name": "LLNL/WVL",
@@ -2792,12 +2830,13 @@
         "website": null
     },
     "LLNL/dataracebench": {
-        "description": "Data race benchmark suite for evaluating OpenMP correctness tools.",
+        "description": "Data race benchmark suite for evaluating OpenMP correctness tools aimed to detect data races.",
         "name": "LLNL/dataracebench",
         "topics": [
             "benchmark",
             "data-race",
-            "openmp"
+            "openmp",
+            "microbenchmarks"
         ],
         "website": ""
     },
@@ -3126,7 +3165,9 @@
             "machine-learning",
             "neural-network",
             "hpc",
-            "cpp"
+            "cpp",
+            "radiuss",
+            "performance"
         ],
         "website": "http://software.llnl.gov/lbann/"
     },
